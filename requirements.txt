@@ -1,11 +1,1 @@
 streamlit
-numpy
-pandas
-scikit-learn
-matplotlib
-tensorflow
-keras
-librosa
-soundfile
-opencv-python-headless
-nltk

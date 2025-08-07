@@ -29,31 +29,40 @@ def simple_sentiment_analysis(text):
     else:
         return "NEUTRAL", 0.5
 
-def analyze_text_sentiment():
-    st.subheader("📝 Text Sentiment Analysis")
-    text = st.text_area("Enter your thoughts or journal entry:", height=150)
-    
-    if st.button("Analyze Sentiment"):
-        if text.strip():
-            sentiment, confidence = simple_sentiment_analysis(text)
-            
-            # Display results
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                if sentiment == "POSITIVE":
-                    st.success(f"😊 **Sentiment**: {sentiment}")
-                elif sentiment == "NEGATIVE":
-                    st.error(f"😞 **Sentiment**: {sentiment}")
-                else:
-                    st.info(f"😐 **Sentiment**: {sentiment}")
-            
-            with col2:
-                st.metric("Confidence", f"{confidence:.2f}")
-            
-            # Show word count
-            word_count = len(text.split())
-            st.info(f"📊 Word count: {word_count}")
-            
-        else:
-            st.warning("Please enter some text to analyze!")
+def analyze_text_sentiment(user_input=None):
+    """
+    Analyze text sentiment - works both with parameter and Streamlit UI
+    """
+    if user_input is not None:
+        # Called with parameter from streamlit_app.py
+        sentiment, confidence = simple_sentiment_analysis(user_input)
+        return sentiment
+    else:
+        # Called from main.py with full Streamlit UI
+        st.subheader("📝 Text Sentiment Analysis")
+        text = st.text_area("Enter your thoughts or journal entry:", height=150)
+        
+        if st.button("Analyze Sentiment"):
+            if text.strip():
+                sentiment, confidence = simple_sentiment_analysis(text)
+                
+                # Display results
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    if sentiment == "POSITIVE":
+                        st.success(f"😊 **Sentiment**: {sentiment}")
+                    elif sentiment == "NEGATIVE":
+                        st.error(f"😞 **Sentiment**: {sentiment}")
+                    else:
+                        st.info(f"😐 **Sentiment**: {sentiment}")
+                
+                with col2:
+                    st.metric("Confidence", f"{confidence:.2f}")
+                
+                # Show word count
+                word_count = len(text.split())
+                st.info(f"📊 Word count: {word_count}")
+                
+            else:
+                st.warning("Please enter some text to analyze!")
