@@ -2,21 +2,69 @@ import streamlit as st
 
 # Simple functions directly in this file to avoid import issues
 def analyze_text_sentiment_simple(text):
-    """Simple sentiment analysis"""
+    """Improved sentiment analysis with comprehensive word lists"""
     if not text:
         return "NEUTRAL"
     
     text = text.lower()
-    positive_words = ['happy', 'joy', 'love', 'good', 'great', 'wonderful', 'amazing', 'fantastic', 'positive', 'excited']
-    negative_words = ['sad', 'angry', 'hate', 'bad', 'awful', 'horrible', 'terrible', 'negative', 'upset', 'frustrated']
     
-    positive_count = sum(1 for word in positive_words if word in text)
-    negative_count = sum(1 for word in negative_words if word in text)
+    # Comprehensive positive words
+    positive_words = [
+        'happy', 'joy', 'love', 'good', 'great', 'wonderful', 'amazing', 'fantastic', 'positive', 'excited',
+        'excellent', 'perfect', 'awesome', 'brilliant', 'beautiful', 'successful', 'win', 'winning', 'won',
+        'best', 'better', 'smile', 'laugh', 'fun', 'enjoy', 'grateful', 'thankful', 'blessed', 'lucky',
+        'proud', 'confident', 'optimistic', 'hopeful', 'pleased', 'satisfied', 'delighted', 'thrilled',
+        'cheerful', 'joyful', 'elated', 'ecstatic', 'blissful', 'content', 'peaceful', 'calm', 'relaxed'
+    ]
     
-    if positive_count > negative_count:
-        return "POSITIVE"
-    elif negative_count > positive_count:
+    # Comprehensive negative words including your example
+    negative_words = [
+        'sad', 'angry', 'hate', 'bad', 'awful', 'horrible', 'terrible', 'negative', 'upset', 'frustrated',
+        'overwhelmed', 'anxious', 'worried', 'stressed', 'depressed', 'exhausted', 'exhausting', 'tired',
+        'hard', 'difficult', 'tough', 'struggle', 'struggling', 'pain', 'painful', 'hurt', 'hurting',
+        'wrong', 'fail', 'failure', 'failed', 'lose', 'losing', 'lost', 'broken', 'scared', 'afraid',
+        'fear', 'fearful', 'nervous', 'panic', 'worry', 'worrying', 'concern', 'concerned', 'trouble',
+        'problem', 'issue', 'crisis', 'disaster', 'mess', 'chaos', 'confused', 'lost', 'hopeless',
+        'miserable', 'devastated', 'crushed', 'disappointed', 'discouraged', 'desperate', 'helpless',
+        'worthless', 'useless', 'weak', 'sick', 'ill', 'disgusted', 'annoyed', 'irritated', 'mad',
+        'furious', 'outraged', 'betrayed', 'lonely', 'alone', 'isolated', 'rejected', 'abandoned'
+    ]
+    
+    # Count words with better matching
+    positive_count = 0
+    negative_count = 0
+    
+    # Split text into words and check each word
+    words = text.replace(',', ' ').replace('.', ' ').replace('!', ' ').replace('?', ' ').split()
+    
+    for word in words:
+        # Remove punctuation from word
+        clean_word = word.strip('.,!?;:"()[]{}')
+        
+        # Check for positive words
+        if clean_word in positive_words:
+            positive_count += 1
+        
+        # Check for negative words
+        if clean_word in negative_words:
+            negative_count += 1
+        
+        # Check for partial matches (important for compound words)
+        for pos_word in positive_words:
+            if pos_word in clean_word and len(pos_word) > 3:
+                positive_count += 0.5
+                break
+        
+        for neg_word in negative_words:
+            if neg_word in clean_word and len(neg_word) > 3:
+                negative_count += 0.5
+                break
+    
+    # Enhanced logic for mental health context
+    if negative_count > positive_count:
         return "NEGATIVE"
+    elif positive_count > negative_count and positive_count > 1:  # Require stronger positive signal
+        return "POSITIVE"
     else:
         return "NEUTRAL"
 
