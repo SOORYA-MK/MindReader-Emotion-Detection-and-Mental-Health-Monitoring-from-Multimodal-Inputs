@@ -1,0 +1,13 @@
+opencv-python
+streamlit
+matplotlib
+plotly
+numpy
+pandas
+scikit-learn
+python-dotenv
+tensorflow
+keras
+deepface
+seaborn
+pillow
