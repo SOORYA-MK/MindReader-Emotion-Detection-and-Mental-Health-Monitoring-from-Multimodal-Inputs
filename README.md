@@ -1,3 +1,7 @@
+![GitHub Repo stars](https://img.shields.io/github/stars/SOORYA-MK/MindReader-Emotion-Detection-and-Mental-Health-Monitoring-from-Multimodal-Inputs)
+![GitHub forks](https://img.shields.io/github/forks/SOORYA-MK/MindReader-Emotion-Detection-and-Mental-Health-Monitoring-from-Multimodal-Inputs)
+![GitHub license](https://img.shields.io/github/license/SOORYA-MK/MindReader-Emotion-Detection-and-Mental-Health-Monitoring-from-Multimodal-Inputs)
+
 # MindReader – Emotion & Mental Health Detection from Multimodal Inputs
 
 **MindReader** is an AI-powered mental health and emotion detection system that uses **facial expressions**, **voice tone**, and **text sentiment** to identify the emotional state of a user in real-time.
