@@ -9,4 +9,3 @@ librosa
 soundfile
 opencv-python-headless
 nltk
-deepface
